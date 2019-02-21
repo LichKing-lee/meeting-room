@@ -1,4 +1,4 @@
-package com.yong.kakaopay.meetingroom.meetingroom.repository;
+package com.yong.kakaopay.meetingroom.meetingroom.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

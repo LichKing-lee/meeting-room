@@ -1,4 +1,4 @@
-package com.yong.kakaopay.meetingroom.meetingroom.repository;
+package com.yong.kakaopay.meetingroom.meetingroom.mapper;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import com.yong.kakaopay.meetingroom.meetingroom.domain.MeetingRoom;
 
 @Mapper
 public interface MeetingRoomMapper {
-	@Select("SELECT * FROM meetingroom")
+	@Select("SELECT meeting_room_id as id, meeting_room_name as name FROM meeting_room")
 	List<MeetingRoom> selectAll();
 
-	@Select("SELECT * FROM meetingroom WHERE id = #{id}")
+	@Select("SELECT meeting_room_id as id, meeting_room_name as name FROM meeting_room WHERE meeting_room_id = #{id}")
 	MeetingRoom selectOne(@Param("id") Integer id);
 }

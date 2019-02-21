@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.yong.kakaopay.meetingroom.meetingroom.domain.MeetingRoom;
-import com.yong.kakaopay.meetingroom.meetingroom.repository.MeetingRoomMapper;
+import com.yong.kakaopay.meetingroom.meetingroom.mapper.MeetingRoomMapper;
 import com.yong.kakaopay.meetingroom.meetingroom.service.MeetingRoomService;
 
 @RunWith(SpringRunner.class)

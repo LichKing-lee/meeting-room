@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.yong.kakaopay.meetingroom.meetingroom.domain.MeetingRoom;
-import com.yong.kakaopay.meetingroom.meetingroom.repository.MeetingRoomMapper;
+import com.yong.kakaopay.meetingroom.meetingroom.mapper.MeetingRoomMapper;
 import lombok.AllArgsConstructor;
 
 @Service
