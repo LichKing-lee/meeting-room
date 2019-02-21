@@ -24,4 +24,13 @@ public class MeetingRoomMapperTest {
 
 		assertThat(meetingRooms.size()).isEqualTo(4);
 	}
+
+	@Test
+	public void selectOne() {
+		MeetingRoom meetingRoom = meetingRoomMapper.selectOne(3);
+
+		MeetingRoom actual = new MeetingRoom(3, "회의실3");
+
+		assertThat(meetingRoom).isEqualTo(actual);
+	}
 }
