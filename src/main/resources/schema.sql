@@ -6,6 +6,7 @@ create table meeting_room (
 create table reservation (
   reservation_id INT auto_increment primary key,
   meeting_room_id INT NOT NULL,
-  reservation_datetime TIMESTAMP NOT NULL,
+  start_datetime TIMESTAMP NOT NULL,
+  end_datetime TIMESTAMP NOT NULL,
   user_name VARCHAR(10) NOT NULL
 );

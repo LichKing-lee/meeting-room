@@ -8,6 +8,7 @@ import lombok.Data;
 public class ReservationDto {
 	private Integer reservationId;
 	private Integer meetingRoomId;
-	private LocalDateTime reservationDatetime;
+	private LocalDateTime startDatetime;
+	private LocalDateTime endDatetime;
 	private String userName;
 }

@@ -11,10 +11,19 @@ import com.yong.kakaopay.meetingroom.reservation.exception.ReservationException;
 public class TimeValidator implements ReservationValidator {
 	@Override
 	public void validate(Reservation reservation) {
-		LocalDateTime dateTime = reservation.getReservationDateTime();
+		LocalDateTime startDateTime = reservation.getStartDateTime();
+		LocalDateTime endDateTime = reservation.getEndDateTime();
 
-		if(dateTime.getMinute() % 30 != 0) {
-			throw new ReservationException("Invalid time");
+		if(!(validateMinuteUnit(startDateTime) && validateMinuteUnit(endDateTime))) {
+			throw new ReservationException("Invalid minute unit");
 		}
+
+		if(!startDateTime.isBefore(endDateTime)) {
+			throw new ReservationException("Invalid end date time");
+		}
+	}
+
+	private boolean validateMinuteUnit(LocalDateTime dateTime) {
+		return dateTime.getMinute() % 30 == 0;
 	}
 }

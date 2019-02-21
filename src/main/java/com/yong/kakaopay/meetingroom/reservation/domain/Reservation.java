@@ -13,13 +13,27 @@ import lombok.NoArgsConstructor;
 public class Reservation {
 	private Integer id;
 	private MeetingRoom meetingRoom;
-	private LocalDateTime reservationDateTime;
+	private LocalDateTime startDateTime;
+	private LocalDateTime endDateTime;
 	private String userName;
+
+	public Reservation(MeetingRoom meetingRoom, LocalDateTime startDateTime, LocalDateTime endDateTime,
+		String userName) {
+		this.meetingRoom = meetingRoom;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
+		this.userName = userName;
+	}
 
 	@Data
 	public static class Request {
-		private Integer meetingRoomId;
-		private LocalDateTime reservationDateTime;
+		private LocalDateTime startDateTime;
+		private LocalDateTime endDateTime;
 		private String userName;
+
+		public Reservation asReservation(Integer meetingRoomId) {
+			MeetingRoom meetingRoom = new MeetingRoom(meetingRoomId);
+			return new Reservation(meetingRoom, startDateTime, endDateTime, userName);
+		}
 	}
 }

@@ -17,28 +17,51 @@ public class TimeValidatorTest {
 	}
 
 	@Test
-	public void validate_0분() {
-		timeValidator.validate(mockReservation(0));
+	public void validate_시간단위정상() {
+		timeValidator.validate(mockReservation(LocalDateTime.of(2019, 2, 21, 20, 0),
+			LocalDateTime.of(2019, 2, 21, 22, 30)));
 	}
 
 	@Test(expected = ReservationException.class)
-	public void validate_15분() {
-		timeValidator.validate(mockReservation(15));
+	public void validate_시간단위비정상() {
+		timeValidator.validate(mockReservation(LocalDateTime.of(2019, 2, 21, 20, 10),
+			LocalDateTime.of(2019, 2, 21, 22, 40)));
+	}
+
+	@Test(expected = ReservationException.class)
+	public void validate_시작시간단위비정상() {
+		timeValidator.validate(mockReservation(LocalDateTime.of(2019, 2, 21, 20, 10),
+			LocalDateTime.of(2019, 2, 21, 22, 30)));
+	}
+
+	@Test(expected = ReservationException.class)
+	public void validate_종료시간단위비정상() {
+		timeValidator.validate(mockReservation(LocalDateTime.of(2019, 2, 21, 20, 0),
+			LocalDateTime.of(2019, 2, 21, 22, 35)));
+	}
+
+	@Test(expected = ReservationException.class)
+	public void validate_시작시간과_종료시간이_같음() {
+		timeValidator.validate(mockReservation(LocalDateTime.of(2019, 2, 21, 20, 0),
+			LocalDateTime.of(2019, 2, 21, 20, 0)));
+	}
+
+	@Test(expected = ReservationException.class)
+	public void validate_시작시간이_종료시간_이후() {
+		timeValidator.validate(mockReservation(LocalDateTime.of(2019, 2, 21, 20, 30),
+			LocalDateTime.of(2019, 2, 21, 20, 0)));
 	}
 
 	@Test
-	public void validate_30분() {
-		timeValidator.validate(mockReservation(30));
+	public void validate_시작시간이_종료시간_이전() {
+		timeValidator.validate(mockReservation(LocalDateTime.of(2019, 2, 21, 18, 30),
+			LocalDateTime.of(2019, 2, 21, 20, 0)));
 	}
 
-	@Test(expected = ReservationException.class)
-	public void validate_45분() {
-		timeValidator.validate(mockReservation(45));
-	}
-
-	private Reservation mockReservation(int minute) {
+	private Reservation mockReservation(LocalDateTime start, LocalDateTime end) {
 		Reservation reservation = new Reservation();
-		reservation.setReservationDateTime(LocalDateTime.of(2018, 2, 21, 19, minute));
+		reservation.setStartDateTime(start);
+		reservation.setEndDateTime(end);
 
 		return reservation;
 	}

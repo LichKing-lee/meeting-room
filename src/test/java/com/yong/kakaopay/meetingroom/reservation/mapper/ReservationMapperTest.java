@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.yong.kakaopay.meetingroom.meetingroom.domain.MeetingRoom;
+import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
 import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 
 @RunWith(SpringRunner.class)
@@ -20,12 +22,17 @@ public class ReservationMapperTest {
 
 	@Test
 	public void insert() {
-		reservationMapper.insert(1, LocalDateTime.of(2019, 2, 21, 17, 49), "changyong");
+		Reservation reservation = new Reservation(null, new MeetingRoom(1, "회의실1"),
+			LocalDateTime.of(2019, 2, 21, 18, 0),
+			LocalDateTime.of(2019, 2, 21, 18, 3), "changyong");
+
+		reservationMapper.insert(reservation);
 		ReservationDto dto = reservationMapper.selectOne(1);
 
 		assertThat(dto.getReservationId()).isEqualTo(1);
 		assertThat(dto.getMeetingRoomId()).isEqualTo(1);
-		assertThat(dto.getReservationDatetime()).isEqualTo(LocalDateTime.of(2019, 2, 21, 17, 49));
+		assertThat(dto.getStartDatetime()).isEqualTo(LocalDateTime.of(2019, 2, 21, 18, 0));
+		assertThat(dto.getEndDatetime()).isEqualTo(LocalDateTime.of(2019, 2, 21, 18, 3));
 		assertThat(dto.getUserName()).isEqualTo("changyong");
 	}
 }

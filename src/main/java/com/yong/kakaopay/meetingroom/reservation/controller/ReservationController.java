@@ -18,7 +18,6 @@ public class ReservationController {
 
 	@PostMapping
 	public void reserve(@PathVariable Integer meetingRoomId, @RequestBody Reservation.Request request) {
-		request.setMeetingRoomId(meetingRoomId);
-		reservationService.reserve(request);
+		reservationService.reserve(request.asReservation(meetingRoomId));
 	}
 }

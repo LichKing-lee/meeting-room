@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 public class ReservationService {
 	private ReservationMapper reservationMapper;
 
-	public void reserve(Reservation.Request request) {
-		reservationMapper.insert(request.getMeetingRoomId(), request.getReservationDateTime(), request.getUserName());
+	public void reserve(Reservation reservation) {
+		reservationMapper.insert(reservation);
 	}
 }

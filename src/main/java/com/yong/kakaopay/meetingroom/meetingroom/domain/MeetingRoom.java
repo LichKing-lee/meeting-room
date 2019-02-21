@@ -10,4 +10,8 @@ import lombok.NoArgsConstructor;
 public class MeetingRoom {
 	private Integer id;
 	private String name;
+
+	public MeetingRoom(Integer id) {
+		this.id = id;
+	}
 }
