@@ -1,5 +1,7 @@
 package com.yong.kakaopay.meetingroom.reservation.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,4 +18,16 @@ public interface ReservationMapper {
 
 	@Select("SELECT reservation_id, meeting_room_id, start_datetime, end_datetime, user_name FROM reservation WHERE reservation_id = #{id}")
 	ReservationDto selectOne(@Param("id") Integer id);
+
+	@Select("SELECT reservation_id, meeting_room_id, start_datetime, end_datetime, user_name "
+		+ "FROM reservation "
+		+ "WHERE meeting_room_id = #{id} ")
+	List<ReservationDto> selectByMeetingRoomId(@Param("id") Integer id);
+
+	@Select("SELECT reservation_id, meeting_room_id, start_datetime, end_datetime, user_name "
+		+ "FROM reservation "
+		+ "WHERE meeting_room_id = #{reservation.id} "
+		+ "AND (start_datetime BETWEEN #{reservation.startDateTime} AND #{reservation.endDateTime} "
+		+ "OR end_datetime BETWEEN #{reservation.startDateTime} AND #{reservation.endDateTime})")
+	ReservationDto selectByMeetingRoomIdAndDateTime(@Param("reservation") Reservation reservation);
 }
