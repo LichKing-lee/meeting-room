@@ -74,4 +74,29 @@ public class ReservationControllerIntegTest {
 			.andDo(print())
 			.andExpect(status().is5xxServerError());
 	}
+
+	@Test
+	public void 정상_반복_예약() throws Exception {
+		Reservation.Request request = new Reservation.Request();
+		request.setStartDateTime(LocalDateTime.of(2019, 2, 23, 20, 0));
+		request.setEndDateTime(LocalDateTime.of(2019, 2, 23, 21, 0));
+		request.setUserName("changyong");
+		request.setRepeatCount(5);
+
+		String json = objectMapper.writeValueAsString(request);
+
+		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 3)
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(json))
+			.andDo(print())
+			.andExpect(status().isOk());
+
+		mockMvc.perform(get("/meeting-rooms/{meetingRoomId}", 3)
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(json))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.reservations").isArray())
+			.andExpect(jsonPath("$.reservations.length()").value(6));
+	}
 }

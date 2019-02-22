@@ -22,7 +22,7 @@ public class ReservationController {
 
 	@PostMapping
 	public void reserve(@PathVariable Integer meetingRoomId, @RequestBody Reservation.Request request) {
-		reservationService.reserve(request.asReservation(meetingRoomId));
+		reservationService.reserve(request.asReservations(meetingRoomId));
 	}
 
 	@ExceptionHandler(ReservationException.class)

@@ -1,6 +1,10 @@
 package com.yong.kakaopay.meetingroom.reservation.domain;
 
+import static java.util.stream.Collectors.*;
+
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import com.yong.kakaopay.meetingroom.meetingroom.domain.MeetingRoom;
 import lombok.AllArgsConstructor;
@@ -16,13 +20,15 @@ public class Reservation {
 	private LocalDateTime startDateTime;
 	private LocalDateTime endDateTime;
 	private String userName;
+	private boolean isRepeated;
 
 	public Reservation(MeetingRoom meetingRoom, LocalDateTime startDateTime, LocalDateTime endDateTime,
-		String userName) {
+		String userName, boolean isRepeated) {
 		this.meetingRoom = meetingRoom;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.userName = userName;
+		this.isRepeated = isRepeated;
 	}
 
 	@Data
@@ -30,10 +36,14 @@ public class Reservation {
 		private LocalDateTime startDateTime;
 		private LocalDateTime endDateTime;
 		private String userName;
+		private int repeatCount;
 
-		public Reservation asReservation(Integer meetingRoomId) {
+		public List<Reservation> asReservations(Integer meetingRoomId) {
 			MeetingRoom meetingRoom = new MeetingRoom(meetingRoomId);
-			return new Reservation(meetingRoom, startDateTime, endDateTime, userName);
+
+			return IntStream.rangeClosed(0, repeatCount)
+				.mapToObj(n -> new Reservation(meetingRoom, startDateTime.plusDays(n * 7), endDateTime.plusDays(n * 7), userName, repeatCount > 0))
+				.collect(toList());
 		}
 	}
 }
