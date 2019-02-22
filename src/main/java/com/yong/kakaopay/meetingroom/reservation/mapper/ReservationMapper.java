@@ -26,7 +26,7 @@ public interface ReservationMapper {
 
 	@Select("SELECT reservation_id, meeting_room_id, start_datetime, end_datetime, user_name "
 		+ "FROM reservation "
-		+ "WHERE meeting_room_id = #{reservation.id} "
+		+ "WHERE meeting_room_id = #{reservation.meetingRoom.id} "
 		+ "AND (start_datetime BETWEEN #{reservation.startDateTime} AND #{reservation.endDateTime} "
 		+ "OR end_datetime BETWEEN #{reservation.startDateTime} AND #{reservation.endDateTime})")
 	ReservationDto selectByMeetingRoomIdAndDateTime(@Param("reservation") Reservation reservation);

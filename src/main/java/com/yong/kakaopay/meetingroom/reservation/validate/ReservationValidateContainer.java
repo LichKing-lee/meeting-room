@@ -12,9 +12,11 @@ import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
 public class ReservationValidateContainer {
 	private Set<ReservationValidator> set;
 
-	public ReservationValidateContainer(TimeValidator timeValidator) {
+	public ReservationValidateContainer(TimeValidator timeValidator,
+		EmptyRoomValidator emptyRoomValidator) {
 		Set<ReservationValidator> set = new LinkedHashSet<>();
 		set.add(timeValidator);
+		set.add(emptyRoomValidator);
 
 		this.set = Collections.unmodifiableSet(set);
 	}
