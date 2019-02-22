@@ -99,4 +99,33 @@ public class ReservationControllerIntegTest {
 			.andExpect(jsonPath("$.reservations").isArray())
 			.andExpect(jsonPath("$.reservations.length()").value(6));
 	}
+
+	@Test
+	public void 연달아예약() throws Exception {
+		Reservation.Request request = new Reservation.Request();
+		request.setStartDateTime(LocalDateTime.of(2019, 2, 23, 20, 0));
+		request.setEndDateTime(LocalDateTime.of(2019, 2, 23, 21, 0));
+		request.setUserName("changyong");
+
+		String json = objectMapper.writeValueAsString(request);
+
+		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 3)
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(json))
+			.andDo(print())
+			.andExpect(status().isOk());
+
+		Reservation.Request request2 = new Reservation.Request();
+		request2.setStartDateTime(LocalDateTime.of(2019, 2, 23, 21, 0));
+		request2.setEndDateTime(LocalDateTime.of(2019, 2, 23, 22, 0));
+		request2.setUserName("changyong");
+
+		String json2 = objectMapper.writeValueAsString(request2);
+
+		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 3)
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(json2))
+			.andDo(print())
+			.andExpect(status().isOk());
+	}
 }
