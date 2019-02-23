@@ -178,4 +178,20 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 			.andDo(print())
 			.andExpect(status().is5xxServerError());
 	}
+
+	@Test
+	public void 예약시간이_30분_단위가아니면_예약불가() throws Exception {
+		Reservation.Request request = new Reservation.Request();
+		request.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 10));
+		request.setEndDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
+		request.setUserName("changyong");
+
+		String json = objectMapper.writeValueAsString(request);
+
+		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 1)
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(json))
+			.andDo(print())
+			.andExpect(status().is5xxServerError());
+	}
 }
