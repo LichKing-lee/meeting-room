@@ -12,14 +12,14 @@ import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 
 @Mapper
 public interface ReservationMapper {
-	@Insert("INSERT INTO reservation(meeting_room_id, start_datetime, end_datetime, user_name, is_repeated) "
-		+ "VALUES(#{reservation.meetingRoom.id}, #{reservation.startDateTime}, #{reservation.endDateTime}, #{reservation.userName}, #{reservation.isRepeated})")
+	@Insert("INSERT INTO reservation(meeting_room_id, start_datetime, end_datetime, user_name, repeat_count) "
+		+ "VALUES(#{reservation.meetingRoom.id}, #{reservation.startDateTime}, #{reservation.endDateTime}, #{reservation.userName}, #{reservation.repeatCount})")
 	void insert(@Param("reservation") Reservation reservation);
 
 	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name FROM reservation WHERE reservation_id = #{id}")
 	ReservationDto selectOne(@Param("id") Integer id);
 
-	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name, is_repeated "
+	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name, repeat_count "
 		+ "FROM reservation "
 		+ "WHERE meeting_room_id = #{id} ")
 	List<ReservationDto> selectByMeetingRoomId(@Param("id") Integer id);

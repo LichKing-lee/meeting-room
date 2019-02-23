@@ -24,12 +24,12 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 
 	@Test
 	public void 정상_예약_document() throws Exception {
-		Reservation.Request request = new Reservation.Request();
-		request.setStartDateTime(LocalDateTime.of(2019, 2, 22, 20, 0));
-		request.setEndDateTime(LocalDateTime.of(2019, 2, 22, 21, 0));
-		request.setUserName("changyong");
+		Reservation.Dto dto = new Reservation.Dto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 2, 22, 20, 0));
+		dto.setEndDateTime(LocalDateTime.of(2019, 2, 22, 21, 0));
+		dto.setUserName("changyong");
 
-		String json = objectMapper.writeValueAsString(request);
+		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 1)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -60,7 +60,7 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 			.andExpect(jsonPath("$.startDateTime").value("2019-02-21T20:30:00"))
 			.andExpect(jsonPath("$.endDateTime").value("2019-02-21T22:00:00"))
 			.andExpect(jsonPath("$.userName").value("창용"))
-			.andExpect(jsonPath("$.repeated").value(false))
+			.andExpect(jsonPath("$.repeatCount").value(0))
 			.andDo(document("{method-name}",
 				pathParameters(
 					parameterWithName("reservationId").description("조회할 예약 id")
@@ -72,19 +72,19 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 					fieldWithPath("startDateTime").type(JsonFieldType.STRING).description("예약 시작 시간"),
 					fieldWithPath("endDateTime").type(JsonFieldType.STRING).description("예약 종료 시간"),
 					fieldWithPath("userName").type(JsonFieldType.STRING).description("예약자 이름"),
-					fieldWithPath("repeated").type(JsonFieldType.BOOLEAN).description("반복으로 예약한 건 여부")
+					fieldWithPath("repeatCount").type(JsonFieldType.NUMBER).description("반복횟수")
 				)
 			));
 	}
 
 	@Test
 	public void 종료시간이_시작시간보다_빠르면_예약불가() throws Exception {
-		Reservation.Request request = new Reservation.Request();
-		request.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
-		request.setEndDateTime(LocalDateTime.of(2019, 2, 21, 19, 0));
-		request.setUserName("changyong");
+		Reservation.Dto dto = new Reservation.Dto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
+		dto.setEndDateTime(LocalDateTime.of(2019, 2, 21, 19, 0));
+		dto.setUserName("changyong");
 
-		String json = objectMapper.writeValueAsString(request);
+		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 1)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -95,12 +95,12 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 
 	@Test
 	public void 이미_예약된_회의실은_예약불가() throws Exception {
-		Reservation.Request request = new Reservation.Request();
-		request.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
-		request.setEndDateTime(LocalDateTime.of(2019, 2, 21, 21, 0));
-		request.setUserName("changyong");
+		Reservation.Dto dto = new Reservation.Dto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
+		dto.setEndDateTime(LocalDateTime.of(2019, 2, 21, 21, 0));
+		dto.setUserName("changyong");
 
-		String json = objectMapper.writeValueAsString(request);
+		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 1)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -111,13 +111,13 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 
 	@Test
 	public void 정상_반복_예약() throws Exception {
-		Reservation.Request request = new Reservation.Request();
-		request.setStartDateTime(LocalDateTime.of(2019, 3, 23, 20, 0));
-		request.setEndDateTime(LocalDateTime.of(2019, 3, 23, 21, 0));
-		request.setUserName("changyong");
-		request.setRepeatCount(5);
+		Reservation.Dto dto = new Reservation.Dto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 3, 23, 20, 0));
+		dto.setEndDateTime(LocalDateTime.of(2019, 3, 23, 21, 0));
+		dto.setUserName("changyong");
+		dto.setRepeatCount(5);
 
-		String json = objectMapper.writeValueAsString(request);
+		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 5)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -136,12 +136,12 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 
 	@Test
 	public void 이전예약_종료시간과_다음예약_시간시간이같으면_예약가능() throws Exception {
-		Reservation.Request request = new Reservation.Request();
-		request.setStartDateTime(LocalDateTime.of(2019, 2, 23, 20, 0));
-		request.setEndDateTime(LocalDateTime.of(2019, 2, 23, 21, 0));
-		request.setUserName("changyong");
+		Reservation.Dto dto = new Reservation.Dto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 2, 23, 20, 0));
+		dto.setEndDateTime(LocalDateTime.of(2019, 2, 23, 21, 0));
+		dto.setUserName("changyong");
 
-		String json = objectMapper.writeValueAsString(request);
+		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 3)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -149,12 +149,12 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 			.andDo(print())
 			.andExpect(status().isOk());
 
-		Reservation.Request request2 = new Reservation.Request();
-		request2.setStartDateTime(LocalDateTime.of(2019, 2, 23, 21, 0));
-		request2.setEndDateTime(LocalDateTime.of(2019, 2, 23, 22, 0));
-		request2.setUserName("changyong");
+		Reservation.Dto dto2 = new Reservation.Dto();
+		dto2.setStartDateTime(LocalDateTime.of(2019, 2, 23, 21, 0));
+		dto2.setEndDateTime(LocalDateTime.of(2019, 2, 23, 22, 0));
+		dto2.setUserName("changyong");
 
-		String json2 = objectMapper.writeValueAsString(request2);
+		String json2 = objectMapper.writeValueAsString(dto2);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 3)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -165,12 +165,12 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 
 	@Test
 	public void 시작시간과_종료시간이같으면_예약불가() throws Exception {
-		Reservation.Request request = new Reservation.Request();
-		request.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
-		request.setEndDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
-		request.setUserName("changyong");
+		Reservation.Dto dto = new Reservation.Dto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
+		dto.setEndDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
+		dto.setUserName("changyong");
 
-		String json = objectMapper.writeValueAsString(request);
+		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 1)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -181,12 +181,12 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 
 	@Test
 	public void 예약시간이_30분_단위가아니면_예약불가() throws Exception {
-		Reservation.Request request = new Reservation.Request();
-		request.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 10));
-		request.setEndDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
-		request.setUserName("changyong");
+		Reservation.Dto dto = new Reservation.Dto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 2, 21, 20, 10));
+		dto.setEndDateTime(LocalDateTime.of(2019, 2, 21, 20, 0));
+		dto.setUserName("changyong");
 
-		String json = objectMapper.writeValueAsString(request);
+		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/meeting-rooms/{meetingRoomId}/reservation", 1)
 			.contentType(MediaType.APPLICATION_JSON_UTF8)

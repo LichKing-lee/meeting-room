@@ -23,9 +23,9 @@ public class ReservationMapperTest {
 
 	@Test
 	public void insert() {
-		Reservation reservation = new Reservation(null, new MeetingRoom(1, "회의실1"),
+		Reservation reservation = new Reservation(new MeetingRoom(1, "회의실1"),
 			LocalDateTime.of(2019, 2, 21, 18, 0),
-			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong", false);
+			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong");
 
 		reservationMapper.insert(reservation);
 		ReservationDto dto = reservationMapper.selectOne(2);
@@ -39,17 +39,17 @@ public class ReservationMapperTest {
 
 	@Test
 	public void selectByMeetingRoomId() {
-		Reservation reservation1 = new Reservation(null, new MeetingRoom(2, "회의실1"),
+		Reservation reservation1 = new Reservation(new MeetingRoom(2, "회의실1"),
 			LocalDateTime.of(2019, 2, 21, 18, 0),
-			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong", false);
+			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong");
 
-		Reservation reservation2 = new Reservation(null, new MeetingRoom(2, "회의실1"),
+		Reservation reservation2 = new Reservation(new MeetingRoom(2, "회의실1"),
 			LocalDateTime.of(2019, 2, 22, 18, 0),
-			LocalDateTime.of(2019, 2, 22, 18, 30), "changyong", false);
+			LocalDateTime.of(2019, 2, 22, 18, 30), "changyong");
 
-		Reservation reservation3 = new Reservation(null, new MeetingRoom(2, "회의실1"),
+		Reservation reservation3 = new Reservation(new MeetingRoom(2, "회의실1"),
 			LocalDateTime.of(2019, 2, 23, 18, 0),
-			LocalDateTime.of(2019, 2, 23, 18, 30), "changyong", false);
+			LocalDateTime.of(2019, 2, 23, 18, 30), "changyong");
 
 		reservationMapper.insert(reservation1);
 		reservationMapper.insert(reservation2);
@@ -61,9 +61,9 @@ public class ReservationMapperTest {
 
 	@Test
 	public void selectByMeetingRoomIdAndDateTime() {
-		Reservation reservation = new Reservation(null, new MeetingRoom(3, "회의실1"),
+		Reservation reservation = new Reservation(new MeetingRoom(3, "회의실1"),
 			LocalDateTime.of(2019, 2, 21, 18, 0),
-			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong", false);
+			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong");
 
 		ReservationDto dto = reservationMapper.selectByMeetingRoomIdAndDateTime(reservation);
 

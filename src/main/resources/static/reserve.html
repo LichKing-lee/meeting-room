@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        addOptions();
+
+        $("#reservationBtn").on("click", reserve);
+    });
+
+    function parse(target) {
+        let pattern = /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/g;
+
+        if(!target.match(pattern)) {
+            throw new Error();
+        }
+
+        return target.replace(pattern, "$1-$2-$3T$4:$5:00");
+    }
+
+    function addOptions() {
+        $.ajax({
+            url: "/meeting-rooms",
+            dataType: "json",
+            success: function(data) {
+                data.meetingRooms.forEach(function(room) {
+                    $("#meetingRoom").append($("<option/>", {
+                        value: room.id,
+                        text: room.name
+                    }));
+                });
+            }
+        });
+    }
+
+    function reserve() {
+        let startDateTime;
+        let endDateTime;
+
+        try {
+            startDateTime = parse($("#startDateTime").val());
+            endDateTime = parse($("#endDateTime").val());
+        } catch(e) {
+            alert("날짜확인");
+            return;
+        }
+
+        let data = {
+            startDateTime: startDateTime,
+            endDateTime: endDateTime,
+            userName: $("#userName").val(),
+            repeatCount: $("#repeatCount").val()
+        };
+
+        $.ajax({
+            url: "/meeting-rooms/" + $("#meetingRoom").val() + "/reservation",
+            data: JSON.stringify(data),
+            method: "POST",
+            contentType: "application/json",
+            success: function(){
+                alert("예약완료");
+            },
+            error: function(err) {
+                let data = JSON.parse(err.responseText);
+                alert("error :: " + data.message);
+            }
+        });
+    }
+</script>
+<body>
+<div>
+    <select id="meetingRoom"></select><br>
+    예약자명: <input id="userName" type="text"><br>
+    반복횟수: <input id="repeatCount" type="number" placeholder="0"><br>
+    시작일자: <input id="startDateTime" type="number" placeholder="yyyyMMddHHmm 201902231630" maxlength="12"><br>
+    종료일자: <input id="endDateTime" type="number" placeholder="yyyyMMddHHmm 201902231630" maxlength="12"><br><br>
+
+    <input type="button" id="reservationBtn" value="예약">
+</div>
+</body>
+</html>

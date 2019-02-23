@@ -36,7 +36,7 @@ public class MeetingRoomControllerIntegTest extends AbstractIntegTest {
 					fieldWithPath("meetingRooms[].reservations[].startDateTime").type(JsonFieldType.STRING).description("예약 시작 시간"),
 					fieldWithPath("meetingRooms[].reservations[].endDateTime").type(JsonFieldType.STRING).description("예약 종료 시간"),
 					fieldWithPath("meetingRooms[].reservations[].userName").type(JsonFieldType.STRING).description("예약자 이름"),
-					fieldWithPath("meetingRooms[].reservations[].repeated").type(JsonFieldType.BOOLEAN).description("반복 예약 여부")
+					fieldWithPath("meetingRooms[].reservations[].repeatCount").type(JsonFieldType.NUMBER).description("반복 예약 횟수")
 				)
 			));
 	}
@@ -66,7 +66,7 @@ public class MeetingRoomControllerIntegTest extends AbstractIntegTest {
 					fieldWithPath("reservations[].startDateTime").type(JsonFieldType.STRING).description("예약 시작 시간"),
 					fieldWithPath("reservations[].endDateTime").type(JsonFieldType.STRING).description("예약 종료 시간"),
 					fieldWithPath("reservations[].userName").type(JsonFieldType.STRING).description("예약자 이름"),
-					fieldWithPath("reservations[].repeated").type(JsonFieldType.BOOLEAN).description("반복 예약 여부")
+					fieldWithPath("reservations[].repeatCount").type(JsonFieldType.NUMBER).description("반복 예약 횟수")
 				)
 			));
 	}

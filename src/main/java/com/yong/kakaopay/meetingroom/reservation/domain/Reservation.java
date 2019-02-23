@@ -20,19 +20,24 @@ public class Reservation {
 	private LocalDateTime startDateTime;
 	private LocalDateTime endDateTime;
 	private String userName;
-	private boolean isRepeated;
+	private int repeatCount;
 
 	public Reservation(MeetingRoom meetingRoom, LocalDateTime startDateTime, LocalDateTime endDateTime,
-		String userName, boolean isRepeated) {
+		String userName) {
+		this(meetingRoom, startDateTime, endDateTime, userName ,0);
+	}
+
+	public Reservation(MeetingRoom meetingRoom, LocalDateTime startDateTime, LocalDateTime endDateTime,
+		String userName, int repeatCount) {
 		this.meetingRoom = meetingRoom;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.userName = userName;
-		this.isRepeated = isRepeated;
+		this.repeatCount = repeatCount;
 	}
 
 	@Data
-	public static class Request {
+	public static class Dto {
 		private LocalDateTime startDateTime;
 		private LocalDateTime endDateTime;
 		private String userName;
@@ -42,7 +47,7 @@ public class Reservation {
 			MeetingRoom meetingRoom = new MeetingRoom(meetingRoomId);
 
 			return IntStream.rangeClosed(0, repeatCount)
-				.mapToObj(n -> new Reservation(meetingRoom, startDateTime.plusDays(n * 7), endDateTime.plusDays(n * 7), userName, repeatCount > 0))
+				.mapToObj(n -> new Reservation(meetingRoom, startDateTime.plusDays(n * 7), endDateTime.plusDays(n * 7), userName, repeatCount))
 				.collect(toList());
 		}
 	}

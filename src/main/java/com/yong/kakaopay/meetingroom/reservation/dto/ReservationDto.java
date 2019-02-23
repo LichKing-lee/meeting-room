@@ -13,7 +13,7 @@ public class ReservationDto {
 	private LocalDateTime startDateTime;
 	private LocalDateTime endDateTime;
 	private String userName;
-	private boolean isRepeated;
+	private int repeatCount;
 
 	public Reservation asReservation() {
 		Reservation reservation = new Reservation();
@@ -22,7 +22,6 @@ public class ReservationDto {
 		reservation.setStartDateTime(startDateTime);
 		reservation.setEndDateTime(endDateTime);
 		reservation.setUserName(userName);
-		reservation.setRepeated(isRepeated);
 
 		return reservation;
 	}

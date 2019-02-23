@@ -20,9 +20,9 @@ import lombok.AllArgsConstructor;
 public class ReservationController {
 	private ReservationService reservationService;
 
-	@PostMapping("/meeting-rooms/{meetingRoomId}/reservation")
-	public void reserve(@PathVariable Integer meetingRoomId, @RequestBody Reservation.Request request) {
-		reservationService.reserve(request.asReservations(meetingRoomId));
+	@PostMapping("/meeting-rooms/{id}/reservation")
+	public void reserve(@PathVariable Integer id, @RequestBody Reservation.Dto dto) {
+		reservationService.reserve(dto.asReservations(id));
 	}
 
 	@GetMapping("/reservation/{reservationId}")
