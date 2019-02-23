@@ -16,15 +16,15 @@ public interface ReservationMapper {
 		+ "VALUES(#{reservation.meetingRoom.id}, #{reservation.startDateTime}, #{reservation.endDateTime}, #{reservation.userName}, #{reservation.isRepeated})")
 	void insert(@Param("reservation") Reservation reservation);
 
-	@Select("SELECT reservation_id, meeting_room_id, start_datetime, end_datetime, user_name FROM reservation WHERE reservation_id = #{id}")
+	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name FROM reservation WHERE reservation_id = #{id}")
 	ReservationDto selectOne(@Param("id") Integer id);
 
-	@Select("SELECT reservation_id, meeting_room_id, start_datetime, end_datetime, user_name, is_repeated "
+	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name, is_repeated "
 		+ "FROM reservation "
 		+ "WHERE meeting_room_id = #{id} ")
 	List<ReservationDto> selectByMeetingRoomId(@Param("id") Integer id);
 
-	@Select("SELECT reservation_id, meeting_room_id, start_datetime, end_datetime, user_name "
+	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name "
 		+ "FROM reservation "
 		+ "WHERE meeting_room_id = #{reservation.meetingRoom.id} "
 		+ "AND (start_datetime BETWEEN #{reservation.startDateTime} AND #{reservation.endDateTime} "

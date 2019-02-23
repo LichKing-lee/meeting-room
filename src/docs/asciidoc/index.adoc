@@ -1,0 +1,73 @@
+= Kakaopay coding test API Reference
+
+== 회의실
+
+=== 회의실 전체 조회
+
+회의실 목록을 조회합니다.
+
+curl)
+include::{snippets}/회의실_전체_조회_document/curl-request.adoc[]
+
+==== path parameters
+
+==== request body
+
+
+==== response body
+
+include::{snippets}/회의실_전체_조회_document/response-fields.adoc[]
+
+=== 회의실 한건 조회
+
+회의실 한건을 조회합니다.
+
+curl)
+include::{snippets}/회의실_한건_조회_document/curl-request.adoc[]
+
+==== path parameters
+
+include::{snippets}/회의실_한건_조회_document/path-parameters.adoc[]
+
+==== request body
+
+
+==== response body
+
+include::{snippets}/회의실_한건_조회_document/response-fields.adoc[]
+
+== 예약
+
+=== 회의실 예약
+
+회의실을 예약합니다.
+예약 실패시엔 500 응답이 반환됩니다.
+
+curl)
+include::{snippets}/정상_예약_document/curl-request.adoc[]
+
+==== path parameters
+
+include::{snippets}/정상_예약_document/path-parameters.adoc[]
+
+==== request body
+include::{snippets}/정상_예약_document/request-fields.adoc[]
+
+==== response body
+
+=== 예약 조회
+
+예약내역을 조회합니다.
+
+curl)
+include::{snippets}/예약_조회_document/curl-request.adoc[]
+
+==== path parameters
+
+include::{snippets}/예약_조회_document/path-parameters.adoc[]
+
+==== request body
+
+==== response body
+
+include::{snippets}/예약_조회_document/response-fields.adoc[]

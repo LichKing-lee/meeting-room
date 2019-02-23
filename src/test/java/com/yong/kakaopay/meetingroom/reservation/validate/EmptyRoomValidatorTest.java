@@ -2,6 +2,8 @@ package com.yong.kakaopay.meetingroom.reservation.validate;
 
 import static org.mockito.BDDMockito.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,8 +26,14 @@ public class EmptyRoomValidatorTest {
 	@Test(expected = ReservationException.class)
 	public void 이미예약데이터가_있음() {
 		Reservation reservation = new Reservation();
+		reservation.setStartDateTime(LocalDateTime.of(2019, 3, 1, 12, 0));
+		reservation.setEndDateTime(LocalDateTime.of(2019, 3, 1, 13, 0));
 
-		given(reservationMapper.selectByMeetingRoomIdAndDateTime(reservation)).willReturn(new ReservationDto());
+		ReservationDto dto = new ReservationDto();
+		dto.setStartDateTime(LocalDateTime.of(2019, 3, 1, 12, 30));
+		dto.setEndDateTime(LocalDateTime.of(2019, 3, 1, 13, 30));
+
+		given(reservationMapper.selectByMeetingRoomIdAndDateTime(reservation)).willReturn(dto);
 
 		emptyRoomValidator.validate(reservation);
 	}

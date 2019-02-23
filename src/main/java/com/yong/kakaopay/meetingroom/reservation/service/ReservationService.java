@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.yong.kakaopay.meetingroom.meetingroom.service.MeetingRoomService;
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
 import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 import com.yong.kakaopay.meetingroom.reservation.mapper.ReservationMapper;
@@ -27,5 +28,9 @@ public class ReservationService {
 		return reservationMapper.selectByMeetingRoomId(meetingRoomId).stream()
 			.map(ReservationDto::asReservation)
 			.collect(toList());
+	}
+
+	public ReservationDto getReservationDto(Integer reservationId) {
+		return reservationMapper.selectOne(reservationId);
 	}
 }

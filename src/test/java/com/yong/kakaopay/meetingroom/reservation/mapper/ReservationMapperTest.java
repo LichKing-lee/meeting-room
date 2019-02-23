@@ -32,8 +32,8 @@ public class ReservationMapperTest {
 
 		assertThat(dto.getReservationId()).isEqualTo(2);
 		assertThat(dto.getMeetingRoomId()).isEqualTo(1);
-		assertThat(dto.getStartDatetime()).isEqualTo(LocalDateTime.of(2019, 2, 21, 18, 0));
-		assertThat(dto.getEndDatetime()).isEqualTo(LocalDateTime.of(2019, 2, 21, 18, 30));
+		assertThat(dto.getStartDateTime()).isEqualTo(LocalDateTime.of(2019, 2, 21, 18, 0));
+		assertThat(dto.getEndDateTime()).isEqualTo(LocalDateTime.of(2019, 2, 21, 18, 30));
 		assertThat(dto.getUserName()).isEqualTo("changyong");
 	}
 

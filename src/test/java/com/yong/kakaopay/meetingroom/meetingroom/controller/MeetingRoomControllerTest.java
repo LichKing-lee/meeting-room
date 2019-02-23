@@ -44,7 +44,7 @@ public class MeetingRoomControllerTest {
 	public void 회의실하나_조회() throws Exception {
 		Integer id = 1;
 
-		given(meetingRoomService.getOne(id)).willReturn(newMockMeetingRoom(id));
+		given(meetingRoomService.getMeetingRoomWithReservation(id)).willReturn(newMockMeetingRoom(id));
 
 		mockMvc.perform(get("/meeting-rooms/{id}", id))
 			.andDo(print())

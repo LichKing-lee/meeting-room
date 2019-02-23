@@ -22,7 +22,7 @@ public class MeetingRoomMapperTest {
 	public void selectAll() {
 		List<MeetingRoom> meetingRooms = meetingRoomMapper.selectAll();
 
-		assertThat(meetingRooms.size()).isEqualTo(4);
+		assertThat(meetingRooms.size()).isEqualTo(5);
 	}
 
 	@Test

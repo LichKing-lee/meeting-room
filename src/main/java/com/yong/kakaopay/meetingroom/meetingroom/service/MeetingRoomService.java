@@ -1,5 +1,7 @@
 package com.yong.kakaopay.meetingroom.meetingroom.service;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,10 +18,14 @@ public class MeetingRoomService {
 	private ReservationService reservationService;
 
 	public List<MeetingRoom> getAll() {
-		return meetingRoomMapper.selectAll();
+		List<MeetingRoom> meetingRooms = meetingRoomMapper.selectAll();
+
+		return meetingRooms.stream()
+			.peek(room -> room.setReservations(reservationService.getReservationsByMeetingRoom(room.getId())))
+			.collect(toList());
 	}
 
-	public MeetingRoom getOne(Integer id) {
+	public MeetingRoom getMeetingRoomWithReservation(Integer id) {
 		MeetingRoom meetingRoom = meetingRoomMapper.selectOne(id);
 		meetingRoom.setReservations(reservationService.getReservationsByMeetingRoom(id));
 

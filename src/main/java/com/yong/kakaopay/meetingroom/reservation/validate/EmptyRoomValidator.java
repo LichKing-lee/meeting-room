@@ -18,7 +18,7 @@ public class EmptyRoomValidator implements ReservationValidator {
 		ReservationDto dto = reservationMapper.selectByMeetingRoomIdAndDateTime(reservation);
 
 		if(dto != null) {
-			if(!dto.getEndDatetime().isEqual(reservation.getStartDateTime())) {
+			if(!dto.getEndDateTime().isEqual(reservation.getStartDateTime())) {
 				throw new ReservationException("Reserved room");
 			}
 		}

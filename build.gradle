@@ -10,6 +10,10 @@ group = 'com.yong.kakaopay'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
 repositories {
     mavenCentral()
 }
@@ -24,10 +28,18 @@ dependencies {
 }
 
 test {
-//    outputs.dir snippetsDir
+    outputs.dir snippetsDir
 }
 
-//asciidoctor {
-//    inputs.dir snippetsDir
-//    dependsOn test
-//}
+asciidoctor {
+    attributes "snippets": snippetsDir
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}

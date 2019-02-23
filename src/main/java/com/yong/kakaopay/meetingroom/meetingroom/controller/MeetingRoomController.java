@@ -21,6 +21,6 @@ public class MeetingRoomController {
 
 	@GetMapping("/meeting-rooms/{id}")
 	public MeetingRoom meetingRoom(@PathVariable Integer id) {
-		return meetingRoomService.getOne(id);
+		return meetingRoomService.getMeetingRoomWithReservation(id);
 	}
 }
