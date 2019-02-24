@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.*;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
 import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
@@ -18,6 +19,7 @@ public class ReservationService {
 	private ReservationMapper reservationMapper;
 	private ReservationValidateContainer reservationValidateContainer;
 
+	@Transactional
 	public void reserve(List<Reservation> reservations) {
 		reservations.forEach(reservationValidateContainer::checkValidate);
 		reservations.forEach(reservationMapper::insert);
