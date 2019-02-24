@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
-import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 import com.yong.kakaopay.meetingroom.reservation.exception.ReservationException;
 import com.yong.kakaopay.meetingroom.reservation.mapper.ReservationMapper;
 
@@ -29,7 +28,7 @@ public class EmptyRoomValidatorTest {
 		reservation.setStartDateTime(LocalDateTime.of(2019, 3, 1, 12, 0));
 		reservation.setEndDateTime(LocalDateTime.of(2019, 3, 1, 13, 0));
 
-		ReservationDto dto = new ReservationDto();
+		Reservation.Dto dto = new Reservation.Dto();
 		dto.setStartDateTime(LocalDateTime.of(2019, 3, 1, 12, 30));
 		dto.setEndDateTime(LocalDateTime.of(2019, 3, 1, 13, 30));
 

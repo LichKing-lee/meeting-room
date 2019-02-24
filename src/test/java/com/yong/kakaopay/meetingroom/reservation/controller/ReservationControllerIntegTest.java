@@ -42,6 +42,8 @@ public class ReservationControllerIntegTest extends AbstractIntegTest {
 				),
 
 				requestFields(
+					fieldWithPath("reservationId").type(JsonFieldType.NULL).description("null"),
+					fieldWithPath("meetingRoomId").type(JsonFieldType.NULL).description("null"),
 					fieldWithPath("startDateTime").type(JsonFieldType.STRING).description("예약 시작 시간"),
 					fieldWithPath("endDateTime").type(JsonFieldType.STRING).description("예약 종료 시간"),
 					fieldWithPath("userName").type(JsonFieldType.STRING).description("예약자 이름"),

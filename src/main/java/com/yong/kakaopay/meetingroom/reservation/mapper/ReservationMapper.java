@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
-import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 
 @Mapper
 public interface ReservationMapper {
@@ -17,17 +16,17 @@ public interface ReservationMapper {
 	void insert(@Param("reservation") Reservation reservation);
 
 	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name FROM reservation WHERE reservation_id = #{id}")
-	ReservationDto selectOne(@Param("id") Integer id);
+	Reservation.Dto selectOne(@Param("id") Integer id);
 
 	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name, repeat_count "
 		+ "FROM reservation "
 		+ "WHERE meeting_room_id = #{id} ")
-	List<ReservationDto> selectByMeetingRoomId(@Param("id") Integer id);
+	List<Reservation.Dto> selectByMeetingRoomId(@Param("id") Integer id);
 
 	@Select("SELECT reservation_id, meeting_room_id, start_datetime as start_date_time, end_datetime as end_date_time, user_name "
 		+ "FROM reservation "
 		+ "WHERE meeting_room_id = #{reservation.meetingRoom.id} "
 		+ "AND (start_datetime BETWEEN #{reservation.startDateTime} AND #{reservation.endDateTime} "
 		+ "OR end_datetime BETWEEN #{reservation.startDateTime} AND #{reservation.endDateTime})")
-	ReservationDto selectByMeetingRoomIdAndDateTime(@Param("reservation") Reservation reservation);
+	Reservation.Dto selectByMeetingRoomIdAndDateTime(@Param("reservation") Reservation reservation);
 }

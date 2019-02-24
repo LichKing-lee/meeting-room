@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
-import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 import com.yong.kakaopay.meetingroom.reservation.mapper.ReservationMapper;
 import com.yong.kakaopay.meetingroom.reservation.validate.ReservationValidateContainer;
 import lombok.AllArgsConstructor;
@@ -27,11 +26,11 @@ public class ReservationService {
 
 	public List<Reservation> getReservationsByMeetingRoom(Integer meetingRoomId) {
 		return reservationMapper.selectByMeetingRoomId(meetingRoomId).stream()
-			.map(ReservationDto::asReservation)
+			.map(Reservation.Dto::asReservation)
 			.collect(toList());
 	}
 
-	public ReservationDto getReservationDto(Integer reservationId) {
+	public Reservation.Dto getReservationDto(Integer reservationId) {
 		return reservationMapper.selectOne(reservationId);
 	}
 }

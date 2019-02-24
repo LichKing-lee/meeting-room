@@ -38,10 +38,18 @@ public class Reservation {
 
 	@Data
 	public static class Dto {
+		private Integer reservationId;
+		private Integer meetingRoomId;
 		private LocalDateTime startDateTime;
 		private LocalDateTime endDateTime;
 		private String userName;
 		private int repeatCount;
+
+		public Reservation asReservation() {
+			MeetingRoom meetingRoom = new MeetingRoom(meetingRoomId);
+
+			return new Reservation(reservationId, meetingRoom, startDateTime, endDateTime, userName, repeatCount);
+		}
 
 		public List<Reservation> asReservations(Integer meetingRoomId) {
 			MeetingRoom meetingRoom = new MeetingRoom(meetingRoomId);

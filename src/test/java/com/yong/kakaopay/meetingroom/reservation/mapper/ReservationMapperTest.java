@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.yong.kakaopay.meetingroom.meetingroom.domain.MeetingRoom;
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
-import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +27,7 @@ public class ReservationMapperTest {
 			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong");
 
 		reservationMapper.insert(reservation);
-		ReservationDto dto = reservationMapper.selectOne(2);
+		Reservation.Dto dto = reservationMapper.selectOne(2);
 
 		assertThat(dto.getReservationId()).isEqualTo(2);
 		assertThat(dto.getMeetingRoomId()).isEqualTo(1);
@@ -54,7 +53,7 @@ public class ReservationMapperTest {
 		reservationMapper.insert(reservation1);
 		reservationMapper.insert(reservation2);
 		reservationMapper.insert(reservation3);
-		List<ReservationDto> dtos = reservationMapper.selectByMeetingRoomId(2);
+		List<Reservation.Dto> dtos = reservationMapper.selectByMeetingRoomId(2);
 
 		assertThat(dtos.size()).isEqualTo(3);
 	}
@@ -65,7 +64,7 @@ public class ReservationMapperTest {
 			LocalDateTime.of(2019, 2, 21, 18, 0),
 			LocalDateTime.of(2019, 2, 21, 18, 30), "changyong");
 
-		ReservationDto dto = reservationMapper.selectByMeetingRoomIdAndDateTime(reservation);
+		Reservation.Dto dto = reservationMapper.selectByMeetingRoomIdAndDateTime(reservation);
 
 		assertThat(dto).isNull();
 	}

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
-import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 import com.yong.kakaopay.meetingroom.reservation.exception.ReservationException;
 import com.yong.kakaopay.meetingroom.reservation.service.ReservationService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class ReservationController {
 	}
 
 	@GetMapping("/reservation/{reservationId}")
-	public ReservationDto reserve(@PathVariable Integer reservationId) {
+	public Reservation.Dto reserve(@PathVariable Integer reservationId) {
 		return reservationService.getReservationDto(reservationId);
 	}
 
