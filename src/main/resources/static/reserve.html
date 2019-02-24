@@ -65,8 +65,7 @@
                 alert("예약완료");
             },
             error: function(err) {
-                let data = JSON.parse(err.responseText);
-                alert("error :: " + data.message);
+                alert("error :: " + err.responseText);
             }
         });
     }

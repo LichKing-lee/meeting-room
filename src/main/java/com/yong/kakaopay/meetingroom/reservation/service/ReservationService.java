@@ -1,12 +1,11 @@
 package com.yong.kakaopay.meetingroom.reservation.service;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.yong.kakaopay.meetingroom.meetingroom.service.MeetingRoomService;
 import com.yong.kakaopay.meetingroom.reservation.domain.Reservation;
 import com.yong.kakaopay.meetingroom.reservation.dto.ReservationDto;
 import com.yong.kakaopay.meetingroom.reservation.mapper.ReservationMapper;

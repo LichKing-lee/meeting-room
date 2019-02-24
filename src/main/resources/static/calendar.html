@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" rel="stylesheet">
+    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+</head>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "/meeting-rooms",
+            dataType: "json",
+            success: function(data) {
+                let events = [];
+                console.log(data);
+                data.meetingRooms.forEach(function(room) {
+                    console.log("size :: " + room.reservations.length);
+                    room.reservations.forEach(function(reservation) {
+                        let test = {
+                            title: room.name + "(예약자: " + reservation.userName + ")",
+                            start: reservation.startDateTime,
+                            end: reservation.endDateTime,
+                            allDay: false
+                        };
+
+                        events.push(test);
+                    });
+                });
+
+                console.log(events);
+                $("#calendar").fullCalendar({
+                    events: events
+                });
+            }
+        });
+    });
+</script>
+<body>
+<div id="calendar">
+
+</div>
+</body>
+</html>
