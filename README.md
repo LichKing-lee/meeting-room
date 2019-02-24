@@ -17,7 +17,7 @@ java -jar -Dserver.port=8020 build/libs/meeting-room-*.jar
 
 ### API Document
 - 애플리케이션 실행 후
-http://localhost:8080/docs/index.html
+`http://localhost:8020/docs/index.html`
 
 ### 스펙 구현
 - 명시적을 나와있는 스펙구현은 아래 테스트로 확인할 수 있습니다.
