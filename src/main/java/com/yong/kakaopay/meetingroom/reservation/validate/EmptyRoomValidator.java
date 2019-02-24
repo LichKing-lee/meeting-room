@@ -18,7 +18,7 @@ public class EmptyRoomValidator implements ReservationValidator {
 
 		if(dto != null) {
 			if(!dto.getEndDateTime().isEqual(reservation.getStartDateTime())) {
-				throw new ReservationException("Reserved room");
+				throw new ReservationException("이미 예약된 회의실입니다.");
 			}
 		}
 	}

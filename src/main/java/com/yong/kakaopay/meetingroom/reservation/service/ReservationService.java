@@ -20,8 +20,10 @@ public class ReservationService {
 
 	@Transactional
 	public void reserve(List<Reservation> reservations) {
-		reservations.forEach(reservationValidateContainer::checkValidate);
-		reservations.forEach(reservationMapper::insert);
+		reservations.forEach(reservation -> {
+			reservationValidateContainer.checkValidate(reservation);
+			reservationMapper.insert(reservation);
+		});
 	}
 
 	public List<Reservation> getReservationsByMeetingRoom(Integer meetingRoomId) {

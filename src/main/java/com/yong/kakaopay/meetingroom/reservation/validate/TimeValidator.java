@@ -15,11 +15,11 @@ public class TimeValidator implements ReservationValidator {
 		LocalDateTime endDateTime = reservation.getEndDateTime();
 
 		if(!(validateMinuteUnit(startDateTime) && validateMinuteUnit(endDateTime))) {
-			throw new ReservationException("Invalid minute unit");
+			throw new ReservationException("30분 단위로 예약가능합니다.");
 		}
 
 		if(!startDateTime.isBefore(endDateTime)) {
-			throw new ReservationException("Invalid end date time");
+			throw new ReservationException("유효하지않은 시간입니다.");
 		}
 	}
 
