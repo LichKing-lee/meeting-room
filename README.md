@@ -15,6 +15,12 @@
 java -jar -Dserver.port=8020 build/libs/meeting-room-*.jar
 ```
 
+- 예약현황
+  - `http://localhost:8020/calendar.html`
+  
+- 회의실예약
+  - `http://localhost:8020/reserve.html`
+
 ### API Document
 - 애플리케이션 실행 후
 `http://localhost:8020/docs/index.html`
