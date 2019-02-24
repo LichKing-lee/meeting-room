@@ -19,8 +19,14 @@
                 data.meetingRooms.forEach(function(room) {
                     console.log("size :: " + room.reservations.length);
                     room.reservations.forEach(function(reservation) {
+                        let title = room.name + "(예약자: " + reservation.userName + ")";
+
+                        if(reservation.repeatCount) {
+                            title += " " + reservation.repeatCount + "회 반복";
+                        }
+
                         let test = {
-                            title: room.name + "(예약자: " + reservation.userName + ")",
+                            title: title,
                             start: reservation.startDateTime,
                             end: reservation.endDateTime,
                             allDay: false
