@@ -15,14 +15,12 @@
             dataType: "json",
             success: function(data) {
                 let events = [];
-                console.log(data);
                 data.meetingRooms.forEach(function(room) {
-                    console.log("size :: " + room.reservations.length);
                     room.reservations.forEach(function(reservation) {
                         let title = room.name + "(예약자: " + reservation.userName + ")";
 
                         if(reservation.repeatCount) {
-                            title += " " + reservation.repeatCount + "회 반복";
+                            title += " " + (reservation.repeatCount + 1) + "회 반복";
                         }
 
                         let test = {
@@ -36,7 +34,6 @@
                     });
                 });
 
-                console.log(events);
                 $("#calendar").fullCalendar({
                     events: events
                 });
