@@ -8,6 +8,8 @@
 - jquery full calendar
 
 ### Getting Started
+- jdk 11 필수
+
 ```
 ./gradlew clean bootJar
 java -jar -Dserver.port=8020 build/libs/meeting-room-*.jar
